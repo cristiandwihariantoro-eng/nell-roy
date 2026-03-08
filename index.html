@@ -459,6 +459,393 @@
     </script>
 </body>
 </html>
+            
+            <header class="text-center mb-6">
+                <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 mb-1">Card Memory</h1>
+                <p class="text-[9px] text-gray-500 uppercase tracking-[0.2em] font-bold mb-4">Created by <span class="text-indigo-400">Nell</span> & <span class="text-purple-400">Roy</span></p>
+                
+                <div class="glass p-5 inline-block min-w-full text-center">
+                    <div class="grid grid-cols-4 gap-2">
+                        <div class="bg-black/20 p-2 rounded-xl"><span id="days" class="text-2xl font-bold block">00</span><p class="text-[8px] opacity-60">HARI</p></div>
+                        <div class="bg-black/20 p-2 rounded-xl"><span id="hours" class="text-2xl font-bold block">00</span><p class="text-[8px] opacity-60">JAM</p></div>
+                        <div class="bg-black/20 p-2 rounded-xl"><span id="mins" class="text-2xl font-bold block">00</span><p class="text-[8px] opacity-60">MENIT</p></div>
+                        <div class="bg-black/20 p-2 rounded-xl"><span id="secs" class="text-2xl font-bold block text-indigo-400">00</span><p class="text-[8px] opacity-60">DETIK</p></div>
+                    </div>
+                </div>
+            </header>
+
+            <div id="tab-guide" class="tab-content">
+                <div class="space-y-4">
+                    <div class="glass p-6 border-l-4 border-indigo-500">
+                        <h2 class="text-xl font-bold text-white mb-2">Hello, Soul! 🌟</h2>
+                        <p class="text-xs text-gray-400 leading-relaxed">Selamat datang di ruang amanmu. Di sini, setiap rasa dihargai dan setiap cerita didengarkan.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="guide-card p-4 rounded-2xl">
+                            <i data-lucide="layout-grid" class="w-5 h-5 text-indigo-400 mb-2"></i>
+                            <h3 class="text-xs font-bold text-white uppercase">Feeds</h3>
+                            <p class="text-[10px] text-gray-500">Berbagi memori secara anonim dengan musik favorit.</p>
+                        </div>
+                        <div class="guide-card p-4 rounded-2xl">
+                            <i data-lucide="cpu" class="w-5 h-5 text-purple-400 mb-2"></i>
+                            <h3 class="text-xs font-bold text-white uppercase">AI Helper</h3>
+                            <p class="text-[10px] text-gray-500">Curhat kapan saja dengan AI yang penuh empati.</p>
+                        </div>
+                    </div>
+
+                    <div class="glass p-5">
+                        <h3 class="text-xs font-bold text-indigo-400 mb-3 flex items-center gap-2 uppercase tracking-tighter">Cara Penggunaan</h3>
+                        <div class="space-y-3">
+                            <div class="flex gap-3 items-start">
+                                <div class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 text-[10px] flex items-center justify-center shrink-0 mt-0.5">1</div>
+                                <p class="text-[11px] text-gray-300">Gunakan tab <b>Feeds</b> untuk menulis cerita dan memilih mood.</p>
+                            </div>
+                            <div class="flex gap-3 items-start">
+                                <div class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 text-[10px] flex items-center justify-center shrink-0 mt-0.5">2</div>
+                                <p class="text-[11px] text-gray-300">Gunakan tab <b>Admin</b> untuk mengubah tema dan font aplikasi.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="switchTab('feed')" class="w-full py-4 bg-indigo-600 text-white rounded-2xl text-xs font-bold shadow-lg shadow-indigo-500/20">Mulai Menjelajah</button>
+                </div>
+            </div>
+
+            <div id="tab-feed" class="tab-content hidden">
+                <section class="glass p-5 mb-6">
+                    <div class="space-y-3">
+                        <div class="grid grid-cols-2 gap-2">
+                            <input type="text" id="user-name" class="w-full bg-white/10 border border-white/10 rounded-lg p-2.5 text-xs text-white focus:outline-none" placeholder="Namamu...">
+                            <div class="flex gap-1">
+                                <button type="button" onclick="setMood('sedih')" class="mood-btn flex-1 py-1 bg-white/10 rounded-md text-xs active" data-mood="sedih">😢</button>
+                                <button type="button" onclick="setMood('kangen')" class="mood-btn flex-1 py-1 bg-white/10 rounded-md text-xs" data-mood="kangen">🫂</button>
+                                <button type="button" onclick="setMood('ikhlas')" class="mood-btn flex-1 py-1 bg-white/10 rounded-md text-xs" data-mood="ikhlas">🍃</button>
+                                <button type="button" onclick="setMood('marah')" class="mood-btn flex-1 py-1 bg-white/10 rounded-md text-xs" data-mood="marah">🔥</button>
+                            </div>
+                        </div>
+                        <input type="text" id="yt-link" class="w-full bg-white/10 border border-white/10 rounded-lg p-2.5 text-xs text-indigo-400 focus:outline-none" placeholder="Link YouTube (Opsional)">
+                        <textarea id="post-content" rows="3" class="w-full bg-white/10 border border-white/10 rounded-xl p-3 text-sm text-white focus:outline-none" placeholder="Ceritakan perasaanmu..."></textarea>
+                        <button onclick="submitPost()" class="w-full bg-indigo-600 text-white py-3.5 rounded-xl text-sm font-bold">Kirim Memori</button>
+                    </div>
+                </section>
+                <div id="feed-container" class="space-y-4"></div>
+            </div>
+
+            <div id="tab-ai" class="tab-content hidden">
+                <div class="glass p-5 flex flex-col h-[60vh]">
+                    <div id="ai-messages" class="flex-1 overflow-y-auto space-y-3 pr-2 text-xs">
+                        <div class="p-3 bg-white/5 rounded-xl border border-white/10"><b>Gamon AI:</b> Halo! Ada yang ingin kamu bagi hari ini?</div>
+                    </div>
+                    <div class="flex gap-2 mt-4">
+                        <input type="text" id="ai-input" class="flex-1 bg-white/10 border border-white/10 rounded-lg p-3 text-xs text-white" placeholder="Ketik curhatan...">
+                        <button onclick="askAI()" class="bg-indigo-600 p-3 rounded-lg"><i data-lucide="send" class="w-4 h-4 text-white"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-admin" class="tab-content hidden">
+                <div id="admin-auth" class="glass p-8 text-center">
+                    <input type="password" id="admin-password-field" class="w-full bg-white/10 rounded-lg p-3 text-center mb-4 text-white" placeholder="Admin Password">
+                    <button onclick="checkAdminPassword()" class="w-full bg-indigo-600 py-3 rounded-xl text-white font-bold">Unlock</button>
+                </div>
+                <div id="admin-panel" class="hidden space-y-4">
+                    <div class="glass p-5">
+                        <h3 class="text-xs font-bold mb-4 text-indigo-400 uppercase tracking-widest">Kustomisasi</h3>
+                        <div class="grid grid-cols-4 gap-2 mb-4">
+                            <button onclick="changeTheme('dark')" class="h-10 rounded bg-zinc-900 border border-white/20"></button>
+                            <button onclick="changeTheme('light')" class="h-10 rounded bg-slate-100 border border-black/20"></button>
+                            <button onclick="changeTheme('purple')" class="h-10 rounded bg-[#2d1b4e] border border-white/20"></button>
+                            <button onclick="changeTheme('ocean')" class="h-10 rounded bg-[#083344] border border-white/20"></button>
+                        </div>
+                        <select id="font-selector" onchange="updateFont(this.value)" class="w-full bg-white/10 border border-white/10 rounded-lg p-3 text-xs text-white mb-4">
+                            <option value="'Plus Jakarta Sans', sans-serif">Modern</option>
+                            <option value="'Quicksand', sans-serif">Friendly</option>
+                            <option value="'Playfair Display', serif">Elegan</option>
+                            <option value="'Caveat', cursive">Tulis Tangan</option>
+                        </select>
+                        <input type="date" id="start-date" class="w-full bg-white/10 rounded-lg p-3 text-white mb-2">
+                        <input type="text" id="api-key-input" class="w-full bg-white/10 rounded-lg p-3 text-xs text-white" placeholder="Gemini API Key">
+                        <button onclick="saveApiKey()" class="w-full bg-indigo-600 mt-2 py-3 rounded-xl text-xs font-bold text-white uppercase">Update Konfigurasi</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="reply-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[60] hidden flex items-center justify-center p-6">
+        <div class="glass w-full max-w-sm p-6 text-white">
+            <h3 id="modal-title" class="font-bold mb-1 text-sm uppercase"></h3>
+            <p id="modal-subtitle" class="text-[9px] text-gray-500 mb-4"></p>
+            
+            <div id="admin-confirm-container" class="hidden mb-4">
+                 <input type="password" id="modal-admin-pass" class="w-full bg-white/10 rounded-lg p-2.5 text-xs text-white focus:outline-none" placeholder="Masukkan Password Admin">
+            </div>
+
+            <textarea id="modal-content" rows="4" class="w-full bg-white/10 rounded-xl p-3 text-sm focus:outline-none mb-4"></textarea>
+            
+            <div class="flex gap-2">
+                <button onclick="closeModal()" class="flex-1 py-3 bg-white/10 rounded-xl text-[10px] font-bold uppercase">Batal</button>
+                <button id="btn-modal-submit" class="flex-1 py-3 bg-indigo-600 rounded-xl text-[10px] font-bold uppercase">Proses</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="fixed bottom-0 left-0 right-0 bg-black/60 backdrop-blur-3xl border-t border-white/10 px-4 py-3 flex justify-around items-center z-50">
+        <button onclick="switchTab('guide')" id="nav-guide" class="nav-btn active flex flex-col items-center gap-1"><i data-lucide="book-open" class="w-5 h-5"></i><span class="text-[9px] font-bold uppercase">Guide</span></button>
+        <button onclick="switchTab('feed')" id="nav-feed" class="nav-btn flex flex-col items-center gap-1"><i data-lucide="layout-grid" class="w-5 h-5"></i><span class="text-[9px] font-bold uppercase">Feeds</span></button>
+        <button onclick="switchTab('ai')" id="nav-ai" class="nav-btn flex flex-col items-center gap-1"><i data-lucide="cpu" class="w-5 h-5"></i><span class="text-[9px] font-bold uppercase">AI</span></button>
+        <button onclick="switchTab('admin')" id="nav-admin" class="nav-btn flex flex-col items-center gap-1"><i data-lucide="lock" class="w-5 h-5"></i><span class="text-[9px] font-bold uppercase">Admin</span></button>
+    </nav>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, doc, setDoc, addDoc, deleteDoc, onSnapshot, query, orderBy, updateDoc, arrayUnion, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCnQgs8JX1K1vECBF4DfO0IPG3JViwpsEg",
+            authDomain: "gamon-era.firebaseapp.com",
+            projectId: "gamon-era",
+            storageBucket: "gamon-era.firebasestorage.app",
+            messagingSenderId: "479388713644",
+            appId: "1:479388713644:web:fb3b7ee313c86509e19509"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const configPath = doc(db, 'artifacts', 'gamon-era-shared', 'data', 'config');
+        const postsPath = collection(db, 'artifacts', 'gamon-era-shared', 'posts');
+
+        let selectedMood = 'sedih';
+        let startDate = new Date().toISOString();
+        let geminiApiKey = "";
+        const ADMIN_PASSWORD = "gamon";
+
+        window.switchTab = (tab) => {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+            document.getElementById(`nav-${tab}`).classList.add('active');
+            lucide.createIcons();
+        };
+
+        window.setMood = (mood) => {
+            selectedMood = mood;
+            document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.mood === mood));
+        };
+
+        window.changeTheme = (theme) => {
+            document.body.className = `pb-24 theme-${theme}`;
+            localStorage.setItem('gamon_theme', theme);
+        };
+
+        window.updateFont = (font) => { updateDoc(configPath, { activeFont: font }); };
+
+        window.submitPost = async () => {
+            const content = document.getElementById('post-content').value.trim();
+            if (!content) return;
+            const dayCount = Math.floor((new Date() - new Date(startDate)) / 86400000);
+            await addDoc(postsPath, { 
+                author: document.getElementById('user-name').value || 'Anonim', 
+                content, ytLink: document.getElementById('yt-link').value, 
+                mood: selectedMood, day: Math.max(0, dayCount), 
+                timestamp: new Date().toISOString(), likes: 0, replies: [] 
+            });
+            document.getElementById('post-content').value = '';
+            document.getElementById('yt-link').value = '';
+        };
+
+        window.openReplyModal = (postId, name) => {
+            const modal = document.getElementById('reply-modal');
+            document.getElementById('modal-title').innerText = "Balas Memori";
+            document.getElementById('modal-subtitle').innerText = `Menanggapi cerita dari ${name}`;
+            document.getElementById('modal-content').placeholder = "Tulis dukunganmu...";
+            document.getElementById('admin-confirm-container').classList.add('hidden');
+            document.getElementById('modal-content').classList.remove('hidden');
+            modal.classList.remove('hidden');
+
+            document.getElementById('btn-modal-submit').onclick = async () => {
+                const val = document.getElementById('modal-content').value;
+                if(!val) return;
+                await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId), {
+                    replies: arrayUnion({ author: 'Anonim', content: val, timestamp: Date.now() })
+                });
+                closeModal();
+            };
+        };
+
+        window.editPost = (id, oldContent) => {
+            const modal = document.getElementById('reply-modal');
+            document.getElementById('modal-title').innerText = "Edit Postingan";
+            document.getElementById('modal-subtitle').innerText = "Memerlukan otorisasi Admin";
+            document.getElementById('modal-content').value = oldContent;
+            document.getElementById('admin-confirm-container').classList.remove('hidden');
+            document.getElementById('modal-content').classList.remove('hidden');
+            modal.classList.remove('hidden');
+
+            document.getElementById('btn-modal-submit').onclick = async () => {
+                if(document.getElementById('modal-admin-pass').value !== ADMIN_PASSWORD) return alert("Password Salah!");
+                await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', id), { content: document.getElementById('modal-content').value });
+                closeModal();
+            };
+        };
+
+        window.deletePost = (id) => {
+            const modal = document.getElementById('reply-modal');
+            document.getElementById('modal-title').innerText = "Hapus Postingan";
+            document.getElementById('modal-subtitle').innerText = "Konfirmasi penghapusan data secara permanen";
+            document.getElementById('admin-confirm-container').classList.remove('hidden');
+            document.getElementById('modal-content').classList.add('hidden');
+            modal.classList.remove('hidden');
+
+            document.getElementById('btn-modal-submit').onclick = async () => {
+                if(document.getElementById('modal-admin-pass').value !== ADMIN_PASSWORD) return alert("Password Salah!");
+                await deleteDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', id));
+                closeModal();
+            };
+        };
+
+        window.deleteReply = (postId, replyIndex) => {
+            const modal = document.getElementById('reply-modal');
+            document.getElementById('modal-title').innerText = "Hapus Balasan";
+            document.getElementById('modal-subtitle').innerText = "Hapus komentar terpilih";
+            document.getElementById('admin-confirm-container').classList.remove('hidden');
+            document.getElementById('modal-content').classList.add('hidden');
+            modal.classList.remove('hidden');
+
+            document.getElementById('btn-modal-submit').onclick = async () => {
+                if(document.getElementById('modal-admin-pass').value !== ADMIN_PASSWORD) return alert("Password Salah!");
+                
+                // Fetch current post data to filter replies locally then update
+                onSnapshot(doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId), async (snap) => {
+                    if(snap.exists()) {
+                        let replies = snap.data().replies || [];
+                        replies.splice(replyIndex, 1);
+                        await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId), { replies });
+                    }
+                }, { once: true });
+                closeModal();
+            };
+        };
+
+        window.closeModal = () => { 
+            document.getElementById('reply-modal').classList.add('hidden'); 
+            document.getElementById('modal-content').value = '';
+            document.getElementById('modal-admin-pass').value = '';
+        };
+
+        window.askAI = async () => {
+            const input = document.getElementById('ai-input');
+            const msg = input.value.trim();
+            if(!msg || !geminiApiKey) return;
+            const msgList = document.getElementById('ai-messages');
+            msgList.innerHTML += `<div class="p-3 bg-indigo-600/20 rounded-xl self-end text-right"><b>Kamu:</b> ${msg}</div>`;
+            input.value = "";
+            try {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ contents: [{ parts: [{ text: `Kamu Gamon AI, teman yang suportif. Jawab singkat & hangat: ${msg}` }] }] })
+                });
+                const data = await res.json();
+                const aiText = data.candidates[0].content.parts[0].text;
+                msgList.innerHTML += `<div class="p-3 bg-white/5 rounded-xl border border-white/10"><b>Gamon AI:</b> ${aiText}</div>`;
+                msgList.scrollTop = msgList.scrollHeight;
+            } catch (e) { alert("AI Busy"); }
+        };
+
+        window.checkAdminPassword = () => {
+            if(document.getElementById('admin-password-field').value === ADMIN_PASSWORD) {
+                document.getElementById('admin-auth').classList.add('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
+            } else alert("Password Salah!");
+        };
+
+        window.saveApiKey = async () => {
+            await updateDoc(configPath, { 
+                geminiApiKey: document.getElementById('api-key-input').value,
+                startDate: new Date(document.getElementById('start-date').value).toISOString()
+            });
+            alert("Data Disimpan!");
+        };
+
+        function getAvatarColor(name) {
+            const colors = ['#6366f1', '#a78bfa', '#f43f5e', '#10b981', '#f59e0b', '#06b6d4'];
+            let hash = 0;
+            for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        function setupSync() {
+            onSnapshot(configPath, (snap) => {
+                if (snap.exists()) {
+                    const data = snap.data();
+                    startDate = data.startDate || startDate;
+                    geminiApiKey = data.geminiApiKey || "";
+                    if(data.activeFont) document.documentElement.style.setProperty('--font-post', data.activeFont);
+                    document.getElementById('api-key-input').value = geminiApiKey;
+                    document.getElementById('start-date').value = startDate.split('T')[0];
+                }
+            });
+
+            const q = query(postsPath, orderBy('timestamp', 'desc'));
+            onSnapshot(q, (snapshot) => {
+                const container = document.getElementById('feed-container');
+                container.innerHTML = snapshot.docs.map(docSnap => {
+                    const post = docSnap.data();
+                    const id = docSnap.id;
+                    const ytId = post.ytLink ? (post.ytLink.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/)?.[2]) : null;
+                    const videoHtml = ytId ? `<iframe class="w-full aspect-video rounded-xl mt-3 border border-white/5" src="https://www.youtube.com/embed/${ytId}" frameborder="0" allowfullscreen></iframe>` : '';
+                    
+                    const replies = (post.replies || []).map((r, idx) => `
+                        <div class="bg-black/10 p-2 rounded-lg mt-1 text-[10px] flex justify-between items-center group">
+                            <span><b>${r.author}:</b> ${r.content}</span>
+                            <button onclick="deleteReply('${id}', ${idx})" class="opacity-0 group-hover:opacity-100 text-red-500 ml-2 transition-opacity">
+                                <i data-lucide="x" class="w-3 h-3"></i>
+                            </button>
+                        </div>`).join('');
+                    
+                    return `
+                        <div class="glass card-post">
+                            <div class="flex justify-between items-start mb-2">
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar" style="background:${getAvatarColor(post.author)}">${post.author.substring(0,2)}</div>
+                                    <div class="flex flex-col"><span class="text-[10px] font-bold uppercase leading-tight">${post.author}</span><span class="text-[8px] opacity-40">Day ${post.day}</span></div>
+                                </div>
+                                <div class="flex gap-2 opacity-20 hover:opacity-100 transition-opacity">
+                                    <button onclick="editPost('${id}', \`${post.content}\`)"><i data-lucide="edit-3" class="w-3.5 h-3.5 text-indigo-400"></i></button>
+                                    <button onclick="deletePost('${id}')"><i data-lucide="trash-2" class="w-3.5 h-3.5 text-red-400"></i></button>
+                                </div>
+                            </div>
+                            <p class="post-text text-sm">${post.content}</p>
+                            ${videoHtml}
+                            <div class="flex gap-4 border-t border-white/5 pt-2 mt-3">
+                                <button class="text-pink-400 text-[10px] font-bold flex items-center gap-1"><i data-lucide="heart" class="w-3.5 h-3.5"></i> ${post.likes || 0}</button>
+                                <button onclick="openReplyModal('${id}', '${post.author}')" class="text-indigo-400 text-[10px] font-bold flex items-center gap-1"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> Balas</button>
+                            </div>
+                            <div class="mt-2">${replies}</div>
+                        </div>`;
+                }).join('');
+                lucide.createIcons();
+            });
+        }
+
+        function updateTimer() {
+            const diff = new Date() - new Date(startDate);
+            document.getElementById('days').innerText = Math.max(0, Math.floor(diff / 86400000)).toString().padStart(2,'0');
+            document.getElementById('hours').innerText = Math.max(0, Math.floor((diff % 86400000) / 3600000)).toString().padStart(2,'0');
+            document.getElementById('mins').innerText = Math.max(0, Math.floor((diff % 3600000) / 60000)).toString().padStart(2,'0');
+            document.getElementById('secs').innerText = Math.max(0, Math.floor((diff % 60000) / 1000)).toString().padStart(2,'0');
+        }
+
+        window.onload = () => {
+            changeTheme(localStorage.getItem('gamon_theme') || 'dark');
+            lucide.createIcons();
+            setupSync();
+            setInterval(updateTimer, 1000);
+        };
+    </script>
+</body>
+</html>
         }
         .loader { width: 48px; height: 48px; border: 3px solid #FFF; border-bottom-color: var(--accent); border-radius: 50%; animation: rotation 1s linear infinite; }
         @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
