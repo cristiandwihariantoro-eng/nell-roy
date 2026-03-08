@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Memory – Elegant Edition</title>
+    <title>Card Memory – Super Stable</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -91,36 +91,23 @@
                 <div class="space-y-4">
                     <div class="glass p-6 border-l-4 border-indigo-500">
                         <h2 class="text-xl font-bold text-white mb-2">Hello, Soul! 🌟</h2>
-                        <p class="text-xs text-gray-400 leading-relaxed">Selamat datang di ruang amanmu. Di sini, setiap rasa dihargai dan setiap cerita didengarkan.</p>
+                        <p class="text-xs text-gray-400 leading-relaxed">Setiap cerita punya tempatnya di sini. Ungkapkan perasaanmu tanpa ragu.</p>
                     </div>
 
                     <div class="grid grid-cols-2 gap-3">
                         <div class="guide-card p-4 rounded-2xl">
                             <i data-lucide="layout-grid" class="w-5 h-5 text-indigo-400 mb-2"></i>
                             <h3 class="text-xs font-bold text-white uppercase">Feeds</h3>
-                            <p class="text-[10px] text-gray-500">Berbagi memori secara anonim dengan musik favorit.</p>
+                            <p class="text-[10px] text-gray-500">Postingan memori dengan lampiran YouTube.</p>
                         </div>
                         <div class="guide-card p-4 rounded-2xl">
                             <i data-lucide="cpu" class="w-5 h-5 text-purple-400 mb-2"></i>
-                            <h3 class="text-xs font-bold text-white uppercase">AI Helper</h3>
-                            <p class="text-[10px] text-gray-500">Curhat kapan saja dengan AI yang penuh empati.</p>
+                            <h3 class="text-xs font-bold text-white uppercase">AI Empati</h3>
+                            <p class="text-[10px] text-gray-500">Teman curhat pintar yang selalu ada 24/7.</p>
                         </div>
                     </div>
 
-                    <div class="glass p-5">
-                        <h3 class="text-xs font-bold text-indigo-400 mb-3 flex items-center gap-2 uppercase tracking-tighter">Cara Penggunaan</h3>
-                        <div class="space-y-3">
-                            <div class="flex gap-3 items-start">
-                                <div class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 text-[10px] flex items-center justify-center shrink-0 mt-0.5">1</div>
-                                <p class="text-[11px] text-gray-300">Gunakan tab <b>Feeds</b> untuk menulis cerita dan memilih mood.</p>
-                            </div>
-                            <div class="flex gap-3 items-start">
-                                <div class="w-5 h-5 rounded-full bg-indigo-500/20 text-indigo-400 text-[10px] flex items-center justify-center shrink-0 mt-0.5">2</div>
-                                <p class="text-[11px] text-gray-300">Gunakan tab <b>Admin</b> untuk mengubah tema dan font aplikasi.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <button onclick="switchTab('feed')" class="w-full py-4 bg-indigo-600 text-white rounded-2xl text-xs font-bold shadow-lg shadow-indigo-500/20">Mulai Menjelajah</button>
+                    <button onclick="switchTab('feed')" class="w-full py-4 bg-indigo-600 text-white rounded-2xl text-xs font-bold shadow-lg shadow-indigo-500/20">Mulai Curhat</button>
                 </div>
             </div>
 
@@ -147,10 +134,10 @@
             <div id="tab-ai" class="tab-content hidden">
                 <div class="glass p-5 flex flex-col h-[60vh]">
                     <div id="ai-messages" class="flex-1 overflow-y-auto space-y-3 pr-2 text-xs">
-                        <div class="p-3 bg-white/5 rounded-xl border border-white/10"><b>Gamon AI:</b> Halo! Ada yang ingin kamu bagi hari ini?</div>
+                        <div class="p-3 bg-white/5 rounded-xl border border-white/10"><b>Gamon AI:</b> Hai, aku di sini. Mau cerita apa hari ini?</div>
                     </div>
                     <div class="flex gap-2 mt-4">
-                        <input type="text" id="ai-input" class="flex-1 bg-white/10 border border-white/10 rounded-lg p-3 text-xs text-white" placeholder="Ketik curhatan...">
+                        <input type="text" id="ai-input" class="flex-1 bg-white/10 border border-white/10 rounded-lg p-3 text-xs text-white focus:outline-none" placeholder="Tulis curhatan...">
                         <button onclick="askAI()" class="bg-indigo-600 p-3 rounded-lg"><i data-lucide="send" class="w-4 h-4 text-white"></i></button>
                     </div>
                 </div>
@@ -178,7 +165,7 @@
                         </select>
                         <input type="date" id="start-date" class="w-full bg-white/10 rounded-lg p-3 text-white mb-2">
                         <input type="text" id="api-key-input" class="w-full bg-white/10 rounded-lg p-3 text-xs text-white" placeholder="Gemini API Key">
-                        <button onclick="saveApiKey()" class="w-full bg-indigo-600 mt-2 py-3 rounded-xl text-xs font-bold text-white uppercase">Update Konfigurasi</button>
+                        <button onclick="saveApiKey()" class="w-full bg-indigo-600 mt-2 py-3 rounded-xl text-xs font-bold text-white uppercase">Update Data</button>
                     </div>
                 </div>
             </div>
@@ -192,10 +179,10 @@
             <p id="modal-subtitle" class="text-[9px] text-gray-500 mb-4"></p>
             
             <div id="admin-confirm-container" class="hidden mb-4">
-                 <input type="password" id="modal-admin-pass" class="w-full bg-white/10 rounded-lg p-2.5 text-xs text-white focus:outline-none" placeholder="Masukkan Password Admin">
+                 <input type="password" id="modal-admin-pass" class="w-full bg-white/10 rounded-lg p-2.5 text-xs text-white focus:outline-none" placeholder="Password Admin">
             </div>
 
-            <textarea id="modal-content" rows="4" class="w-full bg-white/10 rounded-xl p-3 text-sm focus:outline-none mb-4"></textarea>
+            <textarea id="modal-content" rows="4" class="w-full bg-white/10 rounded-xl p-3 text-sm focus:outline-none mb-4" placeholder="Tulis di sini..."></textarea>
             
             <div class="flex gap-2">
                 <button onclick="closeModal()" class="flex-1 py-3 bg-white/10 rounded-xl text-[10px] font-bold uppercase">Batal</button>
@@ -213,7 +200,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getFirestore, collection, doc, setDoc, addDoc, deleteDoc, onSnapshot, query, orderBy, updateDoc, arrayUnion, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, doc, getDoc, setDoc, addDoc, deleteDoc, onSnapshot, query, orderBy, updateDoc, arrayUnion, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCnQgs8JX1K1vECBF4DfO0IPG3JViwpsEg",
@@ -268,13 +255,21 @@
             document.getElementById('yt-link').value = '';
         };
 
+        // FIX: Fungsi Like Post yang stabil
+        window.likePost = async (id) => {
+            try {
+                const postRef = doc(db, 'artifacts', 'gamon-era-shared', 'posts', id);
+                await updateDoc(postRef, { likes: increment(1) });
+            } catch (e) { console.error("Like failed", e); }
+        };
+
         window.openReplyModal = (postId, name) => {
             const modal = document.getElementById('reply-modal');
             document.getElementById('modal-title').innerText = "Balas Memori";
-            document.getElementById('modal-subtitle').innerText = `Menanggapi cerita dari ${name}`;
-            document.getElementById('modal-content').placeholder = "Tulis dukunganmu...";
+            document.getElementById('modal-subtitle').innerText = `Kirim dukungan untuk ${name}`;
             document.getElementById('admin-confirm-container').classList.add('hidden');
             document.getElementById('modal-content').classList.remove('hidden');
+            document.getElementById('modal-content').value = "";
             modal.classList.remove('hidden');
 
             document.getElementById('btn-modal-submit').onclick = async () => {
@@ -290,7 +285,7 @@
         window.editPost = (id, oldContent) => {
             const modal = document.getElementById('reply-modal');
             document.getElementById('modal-title').innerText = "Edit Postingan";
-            document.getElementById('modal-subtitle').innerText = "Memerlukan otorisasi Admin";
+            document.getElementById('modal-subtitle').innerText = "Khusus Admin";
             document.getElementById('modal-content').value = oldContent;
             document.getElementById('admin-confirm-container').classList.remove('hidden');
             document.getElementById('modal-content').classList.remove('hidden');
@@ -306,7 +301,7 @@
         window.deletePost = (id) => {
             const modal = document.getElementById('reply-modal');
             document.getElementById('modal-title').innerText = "Hapus Postingan";
-            document.getElementById('modal-subtitle').innerText = "Konfirmasi penghapusan data secara permanen";
+            document.getElementById('modal-subtitle').innerText = "Aksi ini permanen";
             document.getElementById('admin-confirm-container').classList.remove('hidden');
             document.getElementById('modal-content').classList.add('hidden');
             modal.classList.remove('hidden');
@@ -318,10 +313,11 @@
             };
         };
 
-        window.deleteReply = (postId, replyIndex) => {
+        // FIX: Hapus Balasan yang stabil (Sekali tarik data)
+        window.deleteReply = async (postId, replyIndex) => {
             const modal = document.getElementById('reply-modal');
             document.getElementById('modal-title').innerText = "Hapus Balasan";
-            document.getElementById('modal-subtitle').innerText = "Hapus komentar terpilih";
+            document.getElementById('modal-subtitle').innerText = "Konfirmasi Admin";
             document.getElementById('admin-confirm-container').classList.remove('hidden');
             document.getElementById('modal-content').classList.add('hidden');
             modal.classList.remove('hidden');
@@ -329,21 +325,19 @@
             document.getElementById('btn-modal-submit').onclick = async () => {
                 if(document.getElementById('modal-admin-pass').value !== ADMIN_PASSWORD) return alert("Password Salah!");
                 
-                // Fetch current post data to filter replies locally then update
-                onSnapshot(doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId), async (snap) => {
-                    if(snap.exists()) {
-                        let replies = snap.data().replies || [];
-                        replies.splice(replyIndex, 1);
-                        await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId), { replies });
-                    }
-                }, { once: true });
+                const postRef = doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId);
+                const postSnap = await getDoc(postRef);
+                if(postSnap.exists()){
+                    let replies = postSnap.data().replies || [];
+                    replies.splice(replyIndex, 1);
+                    await updateDoc(postRef, { replies: replies });
+                }
                 closeModal();
             };
         };
 
         window.closeModal = () => { 
             document.getElementById('reply-modal').classList.add('hidden'); 
-            document.getElementById('modal-content').value = '';
             document.getElementById('modal-admin-pass').value = '';
         };
 
@@ -357,20 +351,20 @@
             try {
                 const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
                     method: 'POST', headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ contents: [{ parts: [{ text: `Kamu Gamon AI, teman yang suportif. Jawab singkat & hangat: ${msg}` }] }] })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: `Kamu Gamon AI. Jawab singkat dan berikan kata penyemangat: ${msg}` }] }] })
                 });
                 const data = await res.json();
                 const aiText = data.candidates[0].content.parts[0].text;
                 msgList.innerHTML += `<div class="p-3 bg-white/5 rounded-xl border border-white/10"><b>Gamon AI:</b> ${aiText}</div>`;
                 msgList.scrollTop = msgList.scrollHeight;
-            } catch (e) { alert("AI Busy"); }
+            } catch (e) { alert("AI Sibuk"); }
         };
 
         window.checkAdminPassword = () => {
             if(document.getElementById('admin-password-field').value === ADMIN_PASSWORD) {
                 document.getElementById('admin-auth').classList.add('hidden');
                 document.getElementById('admin-panel').classList.remove('hidden');
-            } else alert("Password Salah!");
+            } else alert("Akses Ditolak!");
         };
 
         window.saveApiKey = async () => {
@@ -412,7 +406,7 @@
                     const replies = (post.replies || []).map((r, idx) => `
                         <div class="bg-black/10 p-2 rounded-lg mt-1 text-[10px] flex justify-between items-center group">
                             <span><b>${r.author}:</b> ${r.content}</span>
-                            <button onclick="deleteReply('${id}', ${idx})" class="opacity-0 group-hover:opacity-100 text-red-500 ml-2 transition-opacity">
+                            <button onclick="deleteReply('${id}', ${idx})" class="opacity-0 group-hover:opacity-100 text-red-500 transition-opacity p-1">
                                 <i data-lucide="x" class="w-3 h-3"></i>
                             </button>
                         </div>`).join('');
@@ -425,14 +419,14 @@
                                     <div class="flex flex-col"><span class="text-[10px] font-bold uppercase leading-tight">${post.author}</span><span class="text-[8px] opacity-40">Day ${post.day}</span></div>
                                 </div>
                                 <div class="flex gap-2 opacity-20 hover:opacity-100 transition-opacity">
-                                    <button onclick="editPost('${id}', \`${post.content}\`)"><i data-lucide="edit-3" class="w-3.5 h-3.5 text-indigo-400"></i></button>
+                                    <button onclick="editPost('${id}', \`${post.content.replace(/`/g, '\\`')}\`)"><i data-lucide="edit-3" class="w-3.5 h-3.5 text-indigo-400"></i></button>
                                     <button onclick="deletePost('${id}')"><i data-lucide="trash-2" class="w-3.5 h-3.5 text-red-400"></i></button>
                                 </div>
                             </div>
                             <p class="post-text text-sm">${post.content}</p>
                             ${videoHtml}
                             <div class="flex gap-4 border-t border-white/5 pt-2 mt-3">
-                                <button class="text-pink-400 text-[10px] font-bold flex items-center gap-1"><i data-lucide="heart" class="w-3.5 h-3.5"></i> ${post.likes || 0}</button>
+                                <button onclick="likePost('${id}')" class="text-pink-400 text-[10px] font-bold flex items-center gap-1 hover:scale-110 transition-transform"><i data-lucide="heart" class="w-3.5 h-3.5"></i> ${post.likes || 0}</button>
                                 <button onclick="openReplyModal('${id}', '${post.author}')" class="text-indigo-400 text-[10px] font-bold flex items-center gap-1"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> Balas</button>
                             </div>
                             <div class="mt-2">${replies}</div>
