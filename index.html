@@ -15,7 +15,6 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;700&family=Quicksand:wght@400;700&display=swap');
-
         :root {
             --bg-main: #0a0a0a;
             --bg-glass: rgba(255, 255, 255, 0.03);
@@ -23,7 +22,6 @@
             --grad-1: #1a1a2e;
             --text-primary: #ffffff; 
             --font-post: 'Plus Jakarta Sans', sans-serif;
-            /* New Variable for Glass Mode */
             --glass-blur: 16px;
             --glass-border: rgba(255, 255, 255, 0.1);
         }
@@ -32,7 +30,6 @@
         body.theme-purple { --bg-main: #0f071a; --bg-glass: rgba(167, 139, 250, 0.05); --accent: #a78bfa; --grad-1: #2d1b4e; --text-primary: #ffffff; }
         body.theme-ocean { --bg-main: #041014; --bg-glass: rgba(34, 211, 238, 0.05); --accent: #06b6d4; --grad-1: #083344; --text-primary: #ffffff; }
 
-        /* Feature: Glassmorphism Mode Class */
         body.glass-mode-active .glass {
             background: rgba(255, 255, 255, 0.07) !important;
             backdrop-filter: blur(25px) saturate(150%) !important;
@@ -48,7 +45,6 @@
             overflow-x: hidden;
         }
 
-        /* Feature: Animated Background (Floating Particles/Lights) */
         .bg-animated-mesh {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -74,14 +70,8 @@
         .bg-dynamic { position: relative; z-index: 1; min-height: 100vh; }
         .glass { background: var(--bg-glass); backdrop-filter: blur(var(--glass-blur)); border: 1px solid var(--glass-border); border-radius: 1.5rem; transition: all 0.4s ease; }
         
-        /* Feature: Floating Card Effect */
-        .card-post:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border-left-color: #fff;
-        }
-        
-        .nav-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0.4; color: var(--text-primary); }
+        .card-post:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-left-color: #fff; }
+        .nav-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0.4; color: var(--text-primary); cursor: pointer; }
         .nav-btn.active { opacity: 1; color: var(--accent); transform: translateY(-6px); }
         
         .post-text { font-family: var(--font-post) !important; line-height: 1.7; }
@@ -91,29 +81,15 @@
         .mood-btn.active { filter: grayscale(0); transform: scale(1.2); }
 
         .avatar-svg { width: 40px; height: 40px; border-radius: 12px; overflow: hidden; background: rgba(255,255,255,0.1); }
-        
         .swal2-popup { background: var(--bg-main) !important; color: var(--text-primary) !important; border: 1px solid var(--glass-border) !important; border-radius: 20px !important; backdrop-filter: blur(10px); }
-        
         #search-bar { transition: all 0.4s ease; width: 40px; overflow: hidden; }
         #search-bar.expanded { width: 100%; }
 
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
-        /* Follow Button Style */
-        .follow-btn {
-            transition: all 0.3s ease;
-            font-size: 9px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            font-weight: 800;
-        }
-        .follow-btn.following {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--accent);
-            border: 1px solid var(--accent);
-        }
+        .follow-btn { transition: all 0.3s ease; font-size: 9px; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; font-weight: 800; }
+        .follow-btn.following { background: rgba(255, 255, 255, 0.1); color: var(--accent); border: 1px solid var(--accent); }
     </style>
 </head>
 <body class="pb-24">
@@ -176,7 +152,6 @@
                                 <input type="text" id="input-search" oninput="filterPosts(this.value)" class="bg-transparent border-none text-xs text-white focus:outline-none ml-2 w-full" placeholder="Cari memori...">
                             </div>
                         </div>
-
                         <div class="grid grid-cols-2 gap-3">
                             <input type="text" id="user-name" class="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Namamu...">
                             <div class="flex gap-2 items-center justify-around bg-white/5 rounded-xl px-2">
@@ -192,8 +167,15 @@
                     </div>
                 </section>
                 <div id="feed-container" class="space-y-6"></div>
-                <div id="infinite-scroll-trigger" class="h-20 flex items-center justify-center opacity-0 transition-opacity">
-                    <div class="w-6 h-6 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+
+            <div id="tab-projects" class="tab-content hidden">
+                <div class="space-y-5" data-aos="fade-up">
+                    <div class="glass p-6 border-l-8 border-pink-500 shadow-xl mb-6">
+                        <h2 class="text-xl font-bold text-white mb-1">Admin Projects 🚀</h2>
+                        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Kumpulan karya terbaik dari Admin.</p>
+                    </div>
+                    <div id="projects-list-container" class="grid grid-cols-1 gap-4"></div>
                 </div>
             </div>
 
@@ -216,12 +198,19 @@
                 </div>
                 <div id="admin-panel" class="hidden space-y-6">
                     <div class="glass p-6 shadow-xl">
-                        <h3 class="text-xs font-bold mb-6 text-indigo-400 uppercase tracking-widest">Settings</h3>
+                        <h3 class="text-xs font-bold mb-4 text-indigo-400 uppercase tracking-widest">Website Management</h3>
+                        <div class="space-y-3 mb-6 bg-white/5 p-4 rounded-2xl border border-white/10">
+                            <input type="text" id="project-title" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white focus:outline-none" placeholder="Judul Website">
+                            <input type="text" id="project-desc" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-white focus:outline-none" placeholder="Deskripsi Singkat">
+                            <input type="text" id="project-link" class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-xs text-indigo-300 focus:outline-none" placeholder="URL Website">
+                            <button onclick="addProject()" class="w-full bg-pink-600 py-3 rounded-xl text-[10px] font-bold text-white uppercase tracking-widest">+ Tambahkan Website</button>
+                        </div>
+                        <h3 class="text-xs font-bold mb-4 text-indigo-400 uppercase tracking-widest">Settings</h3>
                         <div class="grid grid-cols-4 gap-3 mb-6">
-                            <button onclick="changeTheme('dark')" class="h-10 rounded-xl bg-zinc-900 border border-white/10"></button>
-                            <button onclick="changeTheme('light')" class="h-10 rounded-xl bg-slate-100 border border-black/10"></button>
-                            <button onclick="changeTheme('purple')" class="h-10 rounded-xl bg-[#2d1b4e] border border-white/10"></button>
-                            <button onclick="changeTheme('ocean')" class="h-10 rounded-xl bg-[#083344] border border-white/10"></button>
+                            <button onclick="changeTheme('dark')" class="w-full h-10 rounded-xl bg-zinc-900 border border-white/10"></button>
+                            <button onclick="changeTheme('light')" class="w-full h-10 rounded-xl bg-slate-100 border border-black/10"></button>
+                            <button onclick="changeTheme('purple')" class="w-full h-10 rounded-xl bg-[#2d1b4e] border border-white/10"></button>
+                            <button onclick="changeTheme('ocean')" class="w-full h-10 rounded-xl bg-[#083344] border border-white/10"></button>
                         </div>
                         <div class="space-y-4">
                             <select id="font-selector" onchange="updateFont(this.value)" class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-xs text-white">
@@ -241,9 +230,10 @@
         </div>
     </div>
 
-    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-black/40 backdrop-blur-2xl border border-white/10 px-6 py-4 flex justify-around items-center z-50 rounded-[2rem] shadow-2xl">
+    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[95%] max-w-lg bg-black/40 backdrop-blur-2xl border border-white/10 px-4 py-4 flex justify-around items-center z-50 rounded-[2rem] shadow-2xl">
         <button onclick="switchTab('guide')" id="nav-guide" class="nav-btn active flex flex-col items-center gap-1.5"><i data-lucide="home" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase">Guide</span></button>
         <button onclick="switchTab('feed')" id="nav-feed" class="nav-btn flex flex-col items-center gap-1.5"><i data-lucide="layers" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase">Feeds</span></button>
+        <button onclick="switchTab('projects')" id="nav-projects" class="nav-btn flex flex-col items-center gap-1.5"><i data-lucide="briefcase" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase">Projects</span></button>
         <button onclick="switchTab('ai')" id="nav-ai" class="nav-btn flex flex-col items-center gap-1.5"><i data-lucide="bot" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase">AI Help</span></button>
         <button onclick="switchTab('admin')" id="nav-admin" class="nav-btn flex flex-col items-center gap-1.5"><i data-lucide="user-cog" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase">Admin</span></button>
     </nav>
@@ -260,18 +250,23 @@
             messagingSenderId: "479388713644",
             appId: "1:479388713644:web:fb3b7ee313c86509e19509"
         };
+
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const configRef = doc(db, 'artifacts', 'gamon-era-shared', 'data', 'config');
-        const postsCol = collection(db, 'artifacts', 'gamon-era-shared', 'posts');
+        
+        // Path Basis Data
+        const DB_PATH = 'artifacts/gamon-era-shared';
+        const configRef = doc(db, DB_PATH, 'data', 'config');
+        const postsCol = collection(db, DB_PATH, 'posts');
+        const projectsCol = collection(db, DB_PATH, 'projects');
 
         let selectedMood = 'sedih';
         let startDate = new Date().toISOString();
         let geminiApiKey = "";
         let allPosts = []; 
-        let displayedPostsCount = 5; // For Infinite Scroll logic
         const ADMIN_PASS = "gamon";
 
+        // EXPOSE KE WINDOW UNTUK ONCLICK
         window.switchTab = (tab) => {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -281,47 +276,67 @@
             AOS.refresh();
         };
 
-        window.toggleSearch = () => {
-            document.getElementById('search-bar').classList.toggle('expanded');
-        };
-
-        window.setMood = (mood) => {
-            selectedMood = mood;
-            document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.mood === mood));
-        };
-
-        window.changeTheme = (theme) => {
-            document.body.className = `pb-24 theme-${theme}`;
-            if(localStorage.getItem('gamon_glass') === 'true') document.body.classList.add('glass-mode-active');
-            localStorage.setItem('gamon_theme', theme);
-        };
-
-        // NEW: Glassmorphism Toggle Logic
-        window.toggleGlassMode = () => {
-            const isActive = document.body.classList.toggle('glass-mode-active');
-            localStorage.setItem('gamon_glass', isActive);
-            document.getElementById('glass-toggle-text').innerText = isActive ? 'Disable Glass Mode' : 'Enable Glass Mode';
-            Swal.fire({ toast: true, position: 'top-end', icon: 'info', title: `Glass Mode ${isActive ? 'ON' : 'OFF'}`, showConfirmButton: false, timer: 1500 });
-        };
-
-        // NEW: Follow System Logic
         window.toggleFollow = (author) => {
             let following = JSON.parse(localStorage.getItem('gamon_following') || '[]');
             const index = following.indexOf(author);
-            
-            if (index > -1) {
-                following.splice(index, 1);
+            if (index > -1) { 
+                following.splice(index, 1); 
             } else {
                 following.push(author);
                 confetti({ particleCount: 40, spread: 50, colors: ['#6366f1'] });
             }
-            
             localStorage.setItem('gamon_following', JSON.stringify(following));
-            renderPosts(allPosts.slice(0, displayedPostsCount)); // Refresh UI
+            renderPosts(allPosts);
         };
 
-        window.updateFont = (font) => { updateDoc(configRef, { activeFont: font }); };
-        
+        window.sharePost = async (author, contentText) => {
+            const shareData = { title: 'Card Memory', text: `${author}: ${contentText.substring(0, 50)}...`, url: window.location.href };
+            try { 
+                if (navigator.share) { await navigator.share(shareData); } 
+                else {
+                    navigator.clipboard.writeText(window.location.href);
+                    Swal.fire({ icon: 'info', title: 'Link Copied', timer: 1000, showConfirmButton: false });
+                }
+            } catch (err) { console.error(err); }
+        };
+
+        window.likePost = async (id) => {
+            try {
+                await updateDoc(doc(db, DB_PATH, 'posts', id), { likes: increment(1) });
+                confetti({ particleCount: 20, spread: 30, origin: { y: 0.8 }, colors: ['#f43f5e'] });
+            } catch (e) { console.error(e); }
+        };
+
+        window.openReplyModal = async (id, name) => {
+            const { value: text } = await Swal.fire({ title: `Balas ${name}`, input: 'textarea', showCancelButton: true });
+            if (text) {
+                await updateDoc(doc(db, DB_PATH, 'posts', id), { 
+                    replies: arrayUnion({ author: 'Anonim', content: text, timestamp: Date.now() }) 
+                });
+            }
+        };
+
+        window.deletePost = async (id) => {
+            const { value: pass } = await Swal.fire({ title: 'Hapus Post?', input: 'password', showCancelButton: true });
+            if (pass === ADMIN_PASS) await deleteDoc(doc(db, DB_PATH, 'posts', id));
+        };
+
+        window.addProject = async () => {
+            const title = document.getElementById('project-title').value.trim();
+            const desc = document.getElementById('project-desc').value.trim();
+            const link = document.getElementById('project-link').value.trim();
+            if(!title || !link) return;
+            await addDoc(projectsCol, { title, desc, link, timestamp: Date.now() });
+            document.getElementById('project-title').value = '';
+            document.getElementById('project-desc').value = '';
+            document.getElementById('project-link').value = '';
+        };
+
+        window.deleteProject = async (id) => {
+            const { value: pass } = await Swal.fire({ title: 'Hapus?', input: 'password' });
+            if (pass === ADMIN_PASS) await deleteDoc(doc(db, DB_PATH, 'projects', id));
+        };
+
         window.submitPost = async () => {
             const content = document.getElementById('post-content').value.trim();
             if (!content) return;
@@ -334,105 +349,65 @@
             });
             document.getElementById('post-content').value = '';
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-            Swal.fire({ icon: 'success', title: 'Postingan Terkirim!', showConfirmButton: false, timer: 1000 });
         };
 
-        window.likePost = async (id) => {
-            await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', id), { likes: increment(1) });
-            confetti({ particleCount: 30, spread: 40, origin: { y: 0.8 }, scalar: 0.6, colors: ['#f43f5e'] });
+        window.toggleSearch = () => document.getElementById('search-bar').classList.toggle('expanded');
+        window.setMood = (mood) => {
+            selectedMood = mood;
+            document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.mood === mood));
         };
 
-        window.sharePost = async (author, content) => {
-            const shareData = {
-                title: 'Card Memory - Cerita ' + author,
-                text: `"${content.substring(0, 100)}..." - Baca selengkapnya di Card Memory!`,
-                url: window.location.href
-            };
-            try {
-                if (navigator.share) { await navigator.share(shareData); } 
-                else { Swal.fire('Copy Link', 'Link aplikasi disalin ke clipboard!', 'info');
-                navigator.clipboard.writeText(window.location.href); }
-            } catch (err) { console.error(err); }
+        window.toggleGlassMode = () => {
+            const active = document.body.classList.toggle('glass-mode-active');
+            localStorage.setItem('gamon_glass', active);
+            document.getElementById('glass-toggle-text').innerText = active ? 'Disable Glass Mode' : 'Enable Glass Mode';
         };
 
-        window.filterPosts = (keyword) => {
-            const filtered = allPosts.filter(p => 
-                p.author.toLowerCase().includes(keyword.toLowerCase()) || 
-                p.content.toLowerCase().includes(keyword.toLowerCase())
-            );
-            renderPosts(filtered);
+        window.changeTheme = (theme) => {
+            document.body.className = `pb-24 theme-${theme}`;
+            if(localStorage.getItem('gamon_glass') === 'true') document.body.classList.add('glass-mode-active');
+            localStorage.setItem('gamon_theme', theme);
         };
 
-        window.openReplyModal = async (postId, name) => {
-            const { value: text } = await Swal.fire({
-                title: `Balas ke ${name}`,
-                input: 'textarea',
-                inputPlaceholder: 'Tulis dukungan...',
-                showCancelButton: true
+        window.updateFont = (font) => updateDoc(configRef, { activeFont: font });
+        window.saveApiKey = async () => {
+            await updateDoc(configRef, { 
+                geminiApiKey: document.getElementById('api-key-input').value, 
+                startDate: new Date(document.getElementById('start-date').value).toISOString() 
             });
-            if (text) {
-                await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId), {
-                    replies: arrayUnion({ author: 'Anonim', content: text, timestamp: Date.now() })
-                });
-            }
-        };
-
-        window.editPost = async (id, oldContent) => {
-            const { value: pass } = await Swal.fire({ title: 'Admin Required', input: 'password', inputPlaceholder: 'Password Admin' });
-            if (pass !== ADMIN_PASS) return Swal.fire('Error', 'Password Salah', 'error');
-            const { value: newText } = await Swal.fire({ title: 'Edit Post', input: 'textarea', inputValue: oldContent, showCancelButton: true });
-            if (newText) await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', id), { content: newText });
-        };
-
-        window.deletePost = async (id) => {
-            const { value: pass } = await Swal.fire({ title: 'Hapus Post?', input: 'password', inputPlaceholder: 'Password Admin', showCancelButton: true });
-            if (pass === ADMIN_PASS) await deleteDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', id));
-        };
-
-        window.deleteReply = async (postId, replyIndex) => {
-            const { value: pass } = await Swal.fire({ title: 'Hapus Balasan?', input: 'password', inputPlaceholder: 'Password Admin', showCancelButton: true });
-            if (pass !== ADMIN_PASS) return;
-            const snap = await getDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId));
-            if(snap.exists()){
-                let replies = snap.data().replies || [];
-                replies.splice(replyIndex, 1);
-                await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId), { replies });
-            }
-        };
-
-        window.askAI = async () => {
-            const input = document.getElementById('ai-input');
-            const msg = input.value.trim();
-            if(!msg || !geminiApiKey) return;
-            const msgList = document.getElementById('ai-messages');
-            msgList.innerHTML += `<div class="p-3 bg-indigo-600/20 rounded-xl self-end text-right"><b>Kamu:</b> ${msg}</div>`;
-            input.value = "";
-            try {
-                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
-                    method: 'POST', headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ contents: [{ parts: [{ text: `Kamu Gamon AI, teman yang suportif. Jawab singkat: ${msg}` }] }] })
-                });
-                const data = await res.json();
-                msgList.innerHTML += `<div class="p-3 bg-white/5 rounded-xl border border-white/10"><b>Gamon AI:</b> ${data.candidates[0].content.parts[0].text}</div>`;
-                msgList.scrollTop = msgList.scrollHeight;
-            } catch (e) { Swal.fire('AI Busy'); }
         };
 
         window.checkAdminPassword = () => {
             if(document.getElementById('admin-password-field').value === ADMIN_PASS) {
                 document.getElementById('admin-auth').classList.add('hidden');
                 document.getElementById('admin-panel').classList.remove('hidden');
-            } else Swal.fire('Error', 'Password Salah!', 'error');
+            } else Swal.fire('Error', 'Wrong Password');
         };
 
-        window.saveApiKey = async () => {
-            await updateDoc(configRef, { 
-                geminiApiKey: document.getElementById('api-key-input').value,
-                startDate: new Date(document.getElementById('start-date').value).toISOString()
-            });
-            Swal.fire('Saved!', '', 'success');
+        window.askAI = async () => {
+            const input = document.getElementById('ai-input');
+            const msg = input.value.trim();
+            if(!msg || !geminiApiKey) return;
+            const list = document.getElementById('ai-messages');
+            list.innerHTML += `<div class="p-3 bg-indigo-600/20 rounded-xl self-end text-right"><b>Kamu:</b> ${msg}</div>`;
+            input.value = "";
+            try {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ contents: [{ parts: [{ text: `Kamu Gamon AI. Jawab singkat & suportif: ${msg}` }] }] })
+                });
+                const data = await res.json();
+                list.innerHTML += `<div class="p-3 bg-white/5 rounded-xl border border-white/10"><b>AI:</b> ${data.candidates[0].content.parts[0].text}</div>`;
+                list.scrollTop = list.scrollHeight;
+            } catch (e) { console.error(e); }
         };
 
+        window.filterPosts = (keyword) => {
+            const filtered = allPosts.filter(p => p.author.toLowerCase().includes(keyword.toLowerCase()) || p.content.toLowerCase().includes(keyword.toLowerCase()));
+            renderPosts(filtered);
+        };
+
+        // --- RENDERER ---
         function renderPosts(posts) {
             const container = document.getElementById('feed-container');
             const following = JSON.parse(localStorage.getItem('gamon_following') || '[]');
@@ -441,103 +416,89 @@
                 const isFollowing = following.includes(p.author);
                 const ytId = p.ytLink ? (p.ytLink.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/)?.[2]) : null;
                 const videoHtml = ytId ? `<iframe class="w-full aspect-video rounded-2xl mt-4" src="https://www.youtube.com/embed/${ytId}" frameborder="0" allowfullscreen></iframe>` : '';
-                const replies = (p.replies || []).map((r, idx) => `
-                    <div class="bg-black/10 p-2 rounded-lg mt-1 text-[10px] flex justify-between items-center group">
-                        <span><b>${r.author}:</b> ${r.content}</span>
-                        <button onclick="deleteReply('${p.id}', ${idx})" class="opacity-0 group-hover:opacity-100 text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button>
-                    </div>`).join('');
-             
-                const svgCode = multiavatar(p.author);
+                const replies = (p.replies || []).map(r => `<div class="bg-black/10 p-2 rounded-lg mt-1 text-[10px]"><b>${r.author}:</b> ${r.content}</div>`).join('');
+                
+                // Escape content for share button
+                const escapedContent = p.content.replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
                 return `
                     <div class="glass card-post p-6" data-aos="fade-up">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-3">
-                                <div class="avatar-svg shadow-lg">${svgCode}</div>
-                                <div class="flex flex-col">
+                                <div class="avatar-svg">${multiavatar(p.author)}</div>
+                                <div>
                                     <div class="flex items-center gap-2">
-                                        <span class="text-xs font-bold uppercase tracking-wider">${p.author}</span>
-                                        <button onclick="toggleFollow('${p.author}')" class="follow-btn ${isFollowing ? 'following' : 'bg-indigo-600/20 text-indigo-400'}">
-                                            ${isFollowing ? 'Following' : '+ Follow'}
-                                        </button>
+                                        <span class="text-xs font-bold uppercase">${p.author}</span>
+                                        <button onclick="toggleFollow('${p.author}')" class="follow-btn ${isFollowing ? 'following' : 'bg-indigo-600/20 text-indigo-400'}">${isFollowing ? 'Following' : '+ Follow'}</button>
                                     </div>
-                                    <span class="text-[9px] opacity-40">Day ${p.day} • ${isFollowing ? '⭐ Follower' : 'Soul'}</span>
+                                    <span class="text-[9px] opacity-40">Day ${p.day}</span>
                                 </div>
                             </div>
                             <div class="flex gap-3 opacity-30 hover:opacity-100 transition-opacity">
-                                <button onclick="sharePost('${p.author}', \`${p.content.replace(/'/g, "\\'")}\`)"><i data-lucide="share-2" class="w-4 h-4 text-pink-400"></i></button>
-                                <button onclick="editPost('${p.id}', \`${p.content.replace(/`/g, '\\`')}\`)"><i data-lucide="edit-3" class="w-4 h-4 text-indigo-400"></i></button>
+                                <button onclick="sharePost('${p.author}', '${escapedContent}')"><i data-lucide="share-2" class="w-4 h-4 text-pink-400"></i></button>
                                 <button onclick="deletePost('${p.id}')"><i data-lucide="trash-2" class="w-4 h-4 text-red-400"></i></button>
                             </div>
                         </div>
                         <p class="post-text text-sm">${p.content}</p>
                         ${videoHtml}
-                        <div class="flex gap-6 border-t border-white/5 pt-4 mt-5">
-                            <button onclick="likePost('${p.id}')" class="text-pink-400 text-[10px] font-bold flex items-center gap-2"><i data-lucide="heart" class="w-4 h-4"></i> ${p.likes || 0}</button>
-                            <button onclick="openReplyModal('${p.id}', '${p.author}')" class="text-indigo-400 text-[10px] font-bold flex items-center gap-2"><i data-lucide="message-circle" class="w-4 h-4"></i> BALAS</button>
+                        <div class="flex gap-6 border-t border-white/5 pt-4 mt-5 text-[10px] font-bold">
+                            <button onclick="likePost('${p.id}')" class="text-pink-400 flex items-center gap-2"><i data-lucide="heart" class="w-4 h-4"></i> ${p.likes || 0}</button>
+                            <button onclick="openReplyModal('${p.id}', '${p.author}')" class="text-indigo-400 flex items-center gap-2"><i data-lucide="message-circle" class="w-4 h-4"></i> BALAS</button>
                         </div>
                         <div class="mt-3">${replies}</div>
                     </div>`;
             }).join('');
             lucide.createIcons();
-            AOS.refresh();
         }
 
-        // NEW: Infinite Scroll logic using IntersectionObserver
-        function setupInfiniteScroll() {
-            const trigger = document.getElementById('infinite-scroll-trigger');
-            const observer = new IntersectionObserver((entries) => {
-                if(entries[0].isIntersecting && displayedPostsCount < allPosts.length) {
-                    trigger.style.opacity = "1";
-                    setTimeout(() => {
-                        displayedPostsCount += 5;
-                        renderPosts(allPosts.slice(0, displayedPostsCount));
-                        trigger.style.opacity = "0";
-                    }, 800);
-                }
-            }, { threshold: 0.1 });
-            observer.observe(trigger);
+        function renderProjects(projects) {
+            const container = document.getElementById('projects-list-container');
+            container.innerHTML = projects.map(p => `
+                <div class="glass p-4 flex items-center gap-4 hover:bg-white/10 transition-all group relative">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center shadow-lg"><i data-lucide="globe" class="w-6 h-6 text-white"></i></div>
+                    <div class="flex-1">
+                        <h3 class="text-sm font-bold text-white">${p.title}</h3>
+                        <p class="text-[10px] text-gray-500">${p.desc || ''}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="deleteProject('${p.id}')" class="opacity-0 group-hover:opacity-100 p-2 text-red-400"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        <a href="${p.link}" target="_blank" class="p-2 text-indigo-400"><i data-lucide="external-link" class="w-5 h-5"></i></a>
+                    </div>
+                </div>`).join('');
+            lucide.createIcons();
         }
 
+        // --- SYNC & TIMER ---
         function setupSync() {
             onSnapshot(configRef, (snap) => {
                 if (snap.exists()) {
                     const d = snap.data();
+                    if(d.activeFont) document.documentElement.style.setProperty('--font-post', d.activeFont);
                     startDate = d.startDate || startDate;
                     geminiApiKey = d.geminiApiKey || "";
-                    if(d.activeFont) document.documentElement.style.setProperty('--font-post', d.activeFont);
-                    document.getElementById('api-key-input').value = geminiApiKey;
-                    document.getElementById('start-date').value = startDate.split('T')[0];
                 }
             });
-
-            const q = query(postsCol, orderBy('timestamp', 'desc'));
-            onSnapshot(q, (snapshot) => {
+            onSnapshot(query(postsCol, orderBy('timestamp', 'desc')), (snapshot) => {
                 allPosts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                renderPosts(allPosts.slice(0, displayedPostsCount));
+                renderPosts(allPosts);
+            });
+            onSnapshot(query(projectsCol, orderBy('timestamp', 'desc')), (snapshot) => {
+                renderProjects(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
             });
         }
 
         function updateTimer() {
             const diff = new Date() - new Date(startDate);
-            document.getElementById('days').innerText = Math.max(0, Math.floor(diff / 86400000)).toString().padStart(2,'0');
-            document.getElementById('hours').innerText = Math.max(0, Math.floor((diff % 86400000) / 3600000)).toString().padStart(2,'0');
-            document.getElementById('mins').innerText = Math.max(0, Math.floor((diff % 3600000) / 60000)).toString().padStart(2,'0');
-            document.getElementById('secs').innerText = Math.max(0, Math.floor((diff % 60000) / 1000)).toString().padStart(2,'0');
+            document.getElementById('days').innerText = Math.max(0, Math.floor(diff/86400000)).toString().padStart(2,'0');
+            document.getElementById('hours').innerText = Math.max(0, Math.floor((diff%86400000)/3600000)).toString().padStart(2,'0');
+            document.getElementById('mins').innerText = Math.max(0, Math.floor((diff%3600000)/60000)).toString().padStart(2,'0');
+            document.getElementById('secs').innerText = Math.max(0, Math.floor((diff%60000)/1000)).toString().padStart(2,'0');
         }
 
         window.onload = () => {
-            AOS.init({ duration: 800, once: true });
+            AOS.init({ duration: 800 });
             changeTheme(localStorage.getItem('gamon_theme') || 'dark');
-            
-            // Re-apply Glass Mode on load
-            if(localStorage.getItem('gamon_glass') === 'true') {
-                document.body.classList.add('glass-mode-active');
-                document.getElementById('glass-toggle-text').innerText = 'Disable Glass Mode';
-            }
-
             setupSync();
-            setupInfiniteScroll();
             setInterval(updateTimer, 1000);
             lucide.createIcons();
         };
