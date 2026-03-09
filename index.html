@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Memory – Masterpiece</title>
+    <title>Card Memory – Infinity Edition</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -11,9 +11,10 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@multiavatar/multiavatar/multiavatar.min.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;700&family=JetBrains+Mono:wght@400;700&family=Dancing+Script:wght@400;700&family=Quicksand:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;700&family=Quicksand:wght@400;700&display=swap');
         
         :root {
             --bg-main: #0a0a0a;
@@ -24,27 +25,9 @@
             --font-post: 'Plus Jakarta Sans', sans-serif;
         }
 
-        body.theme-light {
-            --bg-main: #f8fafc;
-            --bg-glass: rgba(0, 0, 0, 0.05);
-            --accent: #4f46e5;
-            --grad-1: #e2e8f0;
-            --text-primary: #0f172a; 
-        }
-        body.theme-purple {
-            --bg-main: #0f071a;
-            --bg-glass: rgba(167, 139, 250, 0.05);
-            --accent: #a78bfa;
-            --grad-1: #2d1b4e;
-            --text-primary: #ffffff;
-        }
-        body.theme-ocean {
-            --bg-main: #041014;
-            --bg-glass: rgba(34, 211, 238, 0.05);
-            --accent: #06b6d4;
-            --grad-1: #083344;
-            --text-primary: #ffffff;
-        }
+        body.theme-light { --bg-main: #f8fafc; --bg-glass: rgba(0, 0, 0, 0.05); --accent: #4f46e5; --grad-1: #e2e8f0; --text-primary: #0f172a; }
+        body.theme-purple { --bg-main: #0f071a; --bg-glass: rgba(167, 139, 250, 0.05); --accent: #a78bfa; --grad-1: #2d1b4e; --text-primary: #ffffff; }
+        body.theme-ocean { --bg-main: #041014; --bg-glass: rgba(34, 211, 238, 0.05); --accent: #06b6d4; --grad-1: #083344; --text-primary: #ffffff; }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -63,16 +46,17 @@
         
         .post-text { font-family: var(--font-post) !important; line-height: 1.7; }
         .card-post { border-left: 4px solid var(--accent); transition: transform 0.3s ease; }
-        .card-post:hover { transform: scale(1.01); }
         
         .mood-btn { cursor: pointer; transition: all 0.3s ease; filter: grayscale(1); }
         .mood-btn.active { filter: grayscale(0); transform: scale(1.2); }
 
-        .avatar { width: 36px; height: 36px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 12px; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .avatar-svg { width: 40px; height: 40px; border-radius: 12px; overflow: hidden; background: rgba(255,255,255,0.1); }
         
-        /* Custom SweetAlert Style */
         .swal2-popup { background: var(--bg-main) !important; color: var(--text-primary) !important; border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 20px !important; backdrop-filter: blur(10px); }
-        .swal2-confirm { background-color: var(--accent) !important; border-radius: 12px !important; }
+        
+        /* Search Animation */
+        #search-bar { transition: all 0.4s ease; width: 40px; overflow: hidden; }
+        #search-bar.expanded { width: 100%; }
 
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
@@ -100,34 +84,35 @@
             <div id="tab-guide" class="tab-content">
                 <div class="space-y-5" data-aos="fade-up">
                     <div class="glass p-8 border-l-8 border-indigo-500 shadow-xl">
-                        <h2 class="text-2xl font-bold text-white mb-3">Welcome Home. 🏠</h2>
-                        <p class="text-sm text-gray-400 leading-relaxed">Lepaskan semua bebanmu di sini. Ruang ini dirancang agar kamu merasa lebih tenang dan didengarkan.</p>
+                        <h2 class="text-2xl font-bold text-white mb-3">Hello, Soul! 🌟</h2>
+                        <p class="text-sm text-gray-400 leading-relaxed">Ini adalah Infinity Edition. Bagikan memori, cari cerita lama, dan ekspresikan dirimu lebih bebas.</p>
                     </div>
-
                     <div class="grid grid-cols-2 gap-4">
                         <div class="guide-card p-6 rounded-3xl glass" data-aos="zoom-in" data-aos-delay="100">
-                            <div class="w-10 h-10 bg-indigo-500/20 rounded-xl flex items-center justify-center mb-4">
-                                <i data-lucide="music" class="w-6 h-6 text-indigo-400"></i>
-                            </div>
-                            <h3 class="text-xs font-bold text-white uppercase tracking-widest">YouTube</h3>
-                            <p class="text-[10px] text-gray-500 mt-1">Sematkan lagu yang mewakili perasaanmu.</p>
+                            <i data-lucide="search" class="w-6 h-6 text-indigo-400 mb-4"></i>
+                            <h3 class="text-xs font-bold text-white uppercase tracking-widest">Search</h3>
+                            <p class="text-[10px] text-gray-500 mt-1">Cari memori berdasarkan kata kunci.</p>
                         </div>
                         <div class="guide-card p-6 rounded-3xl glass" data-aos="zoom-in" data-aos-delay="200">
-                            <div class="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center mb-4">
-                                <i data-lucide="sparkles" class="w-6 h-6 text-purple-400"></i>
-                            </div>
-                            <h3 class="text-xs font-bold text-white uppercase tracking-widest">AI Hug</h3>
-                            <p class="text-[10px] text-gray-500 mt-1">Pelukan virtual dari AI yang pengertian.</p>
+                            <i data-lucide="share-2" class="w-6 h-6 text-pink-400 mb-4"></i>
+                            <h3 class="text-xs font-bold text-white uppercase tracking-widest">Share</h3>
+                            <p class="text-[10px] text-gray-500 mt-1">Bagikan ke WA, IG, atau Telegram.</p>
                         </div>
                     </div>
-
-                    <button onclick="switchTab('feed')" class="w-full py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl text-sm font-bold shadow-lg transform hover:scale-[1.02] active:scale-95 transition-all">Mulai Cerita</button>
+                    <button onclick="switchTab('feed')" class="w-full py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl text-sm font-bold shadow-lg transform hover:scale-[1.02] active:scale-95 transition-all">Masuk ke Feeds</button>
                 </div>
             </div>
 
             <div id="tab-feed" class="tab-content hidden">
-                <section class="glass p-6 mb-8 shadow-xl" data-aos="fade-down">
+                <section class="glass p-6 mb-6 shadow-xl" data-aos="fade-down">
                     <div class="space-y-4">
+                        <div id="search-bar-container" class="flex justify-end mb-2">
+                            <div id="search-bar" class="flex items-center bg-white/5 rounded-xl px-3 py-2 border border-white/10">
+                                <i data-lucide="search" class="w-4 h-4 text-indigo-400 shrink-0 cursor-pointer" onclick="toggleSearch()"></i>
+                                <input type="text" id="input-search" oninput="filterPosts(this.value)" class="bg-transparent border-none text-xs text-white focus:outline-none ml-2 w-full" placeholder="Cari memori...">
+                            </div>
+                        </div>
+
                         <div class="grid grid-cols-2 gap-3">
                             <input type="text" id="user-name" class="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="Namamu...">
                             <div class="flex gap-2 items-center justify-around bg-white/5 rounded-xl px-2">
@@ -137,12 +122,9 @@
                                 <button onclick="setMood('marah')" class="mood-btn text-xl" data-mood="marah">🔥</button>
                             </div>
                         </div>
-                        <div class="relative">
-                            <i data-lucide="youtube" class="absolute left-3 top-3.5 w-4 h-4 text-red-500"></i>
-                            <input type="text" id="yt-link" class="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 pl-10 text-xs text-indigo-300 focus:outline-none" placeholder="Paste link YouTube di sini...">
-                        </div>
-                        <textarea id="post-content" rows="4" class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all" placeholder="Ada cerita apa hari ini?"></textarea>
-                        <button onclick="submitPost()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-4 rounded-xl text-sm font-bold shadow-lg shadow-indigo-500/20 transition-all">Kirim ke Memori</button>
+                        <input type="text" id="yt-link" class="w-full bg-white/5 border border-white/10 rounded-xl p-3.5 text-xs text-indigo-300 focus:outline-none" placeholder="Link YouTube (Opsional)">
+                        <textarea id="post-content" rows="3" class="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-sm text-white focus:outline-none" placeholder="Tulis ceritamu..."></textarea>
+                        <button onclick="submitPost()" class="w-full bg-indigo-600 py-4 rounded-xl text-sm font-bold shadow-lg transition-all">Kirim Memori</button>
                     </div>
                 </section>
                 <div id="feed-container" class="space-y-6"></div>
@@ -151,55 +133,39 @@
             <div id="tab-ai" class="tab-content hidden">
                 <div class="glass p-6 flex flex-col h-[65vh] shadow-2xl">
                     <div id="ai-messages" class="flex-1 overflow-y-auto space-y-4 pr-2 text-xs">
-                        <div class="p-4 bg-white/5 rounded-2xl border border-white/10" data-aos="fade-right">
-                            <b class="text-indigo-400">Gamon AI:</b> Halo jiwa yang indah. Aku di sini untuk mendengarkan tanpa menghakimi. Ada yang mengganggu pikiranmu?
-                        </div>
+                        <div class="p-4 bg-white/5 rounded-2xl border border-white/10"><b>Gamon AI:</b> Hai! Aku di sini untuk menemanimu.</div>
                     </div>
                     <div class="flex gap-3 mt-5">
-                        <input type="text" id="ai-input" class="flex-1 bg-white/5 border border-white/10 rounded-xl p-4 text-xs text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Curhat ke AI...">
-                        <button onclick="askAI()" class="bg-indigo-600 p-4 rounded-xl hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-500/20"><i data-lucide="send" class="w-5 h-5 text-white"></i></button>
+                        <input type="text" id="ai-input" class="flex-1 bg-white/5 border border-white/10 rounded-xl p-4 text-xs text-white focus:outline-none" placeholder="Ketik curhatan...">
+                        <button onclick="askAI()" class="bg-indigo-600 p-4 rounded-xl"><i data-lucide="send" class="w-5 h-5 text-white"></i></button>
                     </div>
                 </div>
             </div>
 
             <div id="tab-admin" class="tab-content hidden">
-                <div id="admin-auth" class="glass p-10 text-center shadow-2xl" data-aos="zoom-in">
-                    <div class="w-16 h-16 bg-indigo-600/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i data-lucide="lock" class="w-8 h-8 text-indigo-400"></i>
-                    </div>
-                    <h2 class="text-xl font-bold mb-6">Admin Otorisasi</h2>
-                    <input type="password" id="admin-password-field" class="w-full bg-white/5 rounded-xl p-4 text-center mb-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Password Admin">
-                    <button onclick="checkAdminPassword()" class="w-full bg-indigo-600 py-4 rounded-xl text-white font-bold shadow-lg">Buka Panel</button>
+                <div id="admin-auth" class="glass p-10 text-center shadow-2xl">
+                    <input type="password" id="admin-password-field" class="w-full bg-white/5 rounded-xl p-4 text-center mb-4 text-white focus:outline-none" placeholder="Password Admin">
+                    <button onclick="checkAdminPassword()" class="w-full bg-indigo-600 py-4 rounded-xl text-white font-bold">Unlock</button>
                 </div>
-                
                 <div id="admin-panel" class="hidden space-y-6">
-                    <div class="glass p-6 shadow-xl" data-aos="fade-up">
-                        <h3 class="text-xs font-bold mb-6 text-indigo-400 uppercase tracking-widest flex items-center gap-2"><i data-lucide="settings" class="w-4 h-4"></i> Konfigurasi Sistem</h3>
+                    <div class="glass p-6 shadow-xl">
+                        <h3 class="text-xs font-bold mb-6 text-indigo-400 uppercase tracking-widest">Settings</h3>
                         <div class="grid grid-cols-4 gap-3 mb-6">
-                            <button onclick="changeTheme('dark')" class="h-12 rounded-xl bg-zinc-900 border-2 border-white/10 hover:border-white/30"></button>
-                            <button onclick="changeTheme('light')" class="h-12 rounded-xl bg-slate-100 border-2 border-black/10 hover:border-black/30"></button>
-                            <button onclick="changeTheme('purple')" class="h-12 rounded-xl bg-[#2d1b4e] border-2 border-white/10 hover:border-white/30"></button>
-                            <button onclick="changeTheme('ocean')" class="h-12 rounded-xl bg-[#083344] border-2 border-white/10 hover:border-white/30"></button>
+                            <button onclick="changeTheme('dark')" class="h-10 rounded-xl bg-zinc-900 border border-white/10"></button>
+                            <button onclick="changeTheme('light')" class="h-10 rounded-xl bg-slate-100 border border-black/10"></button>
+                            <button onclick="changeTheme('purple')" class="h-10 rounded-xl bg-[#2d1b4e] border border-white/10"></button>
+                            <button onclick="changeTheme('ocean')" class="h-10 rounded-xl bg-[#083344] border border-white/10"></button>
                         </div>
                         <div class="space-y-4">
-                            <div>
-                                <label class="text-[10px] uppercase font-bold text-gray-500 mb-2 block ml-1">Gaya Font</label>
-                                <select id="font-selector" onchange="updateFont(this.value)" class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-xs text-white focus:outline-none">
-                                    <option value="'Plus Jakarta Sans', sans-serif">Modern Jakarta</option>
-                                    <option value="'Quicksand', sans-serif">Soft Quicksand</option>
-                                    <option value="'Playfair Display', serif">Classic Serif</option>
-                                    <option value="'Caveat', cursive">Handwritten</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="text-[10px] uppercase font-bold text-gray-500 mb-2 block ml-1">Tanggal Mulai (Memory)</label>
-                                <input type="date" id="start-date" class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white text-xs focus:outline-none">
-                            </div>
-                            <div>
-                                <label class="text-[10px] uppercase font-bold text-gray-500 mb-2 block ml-1">Gemini AI Key</label>
-                                <input type="password" id="api-key-input" class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-xs text-white focus:outline-none" placeholder="Masukkan API Key...">
-                            </div>
-                            <button onclick="saveApiKey()" class="w-full bg-indigo-600 py-4 rounded-xl text-xs font-bold text-white uppercase shadow-lg shadow-indigo-500/20">Simpan Perubahan</button>
+                            <select id="font-selector" onchange="updateFont(this.value)" class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-xs text-white">
+                                <option value="'Plus Jakarta Sans', sans-serif">Modern</option>
+                                <option value="'Quicksand', sans-serif">Friendly</option>
+                                <option value="'Playfair Display', serif">Elegan</option>
+                                <option value="'Caveat', cursive">Tulis Tangan</option>
+                            </select>
+                            <input type="date" id="start-date" class="w-full bg-white/5 rounded-xl p-4 text-white text-xs">
+                            <input type="password" id="api-key-input" class="w-full bg-white/5 rounded-xl p-4 text-xs text-white" placeholder="Gemini API Key">
+                            <button onclick="saveApiKey()" class="w-full bg-indigo-600 py-4 rounded-xl text-xs font-bold text-white uppercase">Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -209,17 +175,16 @@
     </div>
 
     <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-black/40 backdrop-blur-2xl border border-white/10 px-6 py-4 flex justify-around items-center z-50 rounded-[2rem] shadow-2xl">
-        <button onclick="switchTab('guide')" id="nav-guide" class="nav-btn active flex flex-col items-center gap-1.5"><i data-lucide="home" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase tracking-tighter">Guide</span></button>
-        <button onclick="switchTab('feed')" id="nav-feed" class="nav-btn flex flex-col items-center gap-1.5"><i data-lucide="layers" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase tracking-tighter">Feeds</span></button>
-        <button onclick="switchTab('ai')" id="nav-ai" class="nav-btn flex flex-col items-center gap-1.5"><i data-lucide="bot" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase tracking-tighter">AI Help</span></button>
-        <button onclick="switchTab('admin')" id="nav-admin" class="nav-btn flex flex-col items-center gap-1.5"><i data-lucide="user-cog" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase tracking-tighter">Admin</span></button>
+        <button onclick="switchTab('guide')" id="nav-guide" class="nav-btn active flex flex-col items-center gap-1.5"><i data-lucide="home" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase">Guide</span></button>
+        <button onclick="switchTab('feed')" id="nav-feed" class="nav-btn flex flex-col items-center gap-1.5"><i data-lucide="layers" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase">Feeds</span></button>
+        <button onclick="switchTab('ai')" id="nav-ai" class="nav-btn flex flex-col items-center gap-1.5"><i data-lucide="bot" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase">AI Help</span></button>
+        <button onclick="switchTab('admin')" id="nav-admin" class="nav-btn flex flex-col items-center gap-1.5"><i data-lucide="user-cog" class="w-5 h-5"></i><span class="text-[8px] font-bold uppercase">Admin</span></button>
     </nav>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getFirestore, collection, doc, getDoc, setDoc, addDoc, deleteDoc, onSnapshot, query, orderBy, updateDoc, arrayUnion, increment } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // CONFIG FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyCnQgs8JX1K1vECBF4DfO0IPG3JViwpsEg",
             authDomain: "gamon-era.firebaseapp.com",
@@ -237,9 +202,9 @@
         let selectedMood = 'sedih';
         let startDate = new Date().toISOString();
         let geminiApiKey = "";
+        let allPosts = []; // Global store for search
         const ADMIN_PASS = "gamon";
 
-        // UTILITIES
         window.switchTab = (tab) => {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -247,6 +212,10 @@
             document.getElementById(`nav-${tab}`).classList.add('active');
             lucide.createIcons();
             AOS.refresh();
+        };
+
+        window.toggleSearch = () => {
+            document.getElementById('search-bar').classList.toggle('expanded');
         };
 
         window.setMood = (mood) => {
@@ -261,43 +230,53 @@
 
         window.updateFont = (font) => { updateDoc(configRef, { activeFont: font }); };
 
-        // FIREBASE ACTIONS
         window.submitPost = async () => {
             const content = document.getElementById('post-content').value.trim();
             if (!content) return;
-            
-            try {
-                const dayCount = Math.floor((new Date() - new Date(startDate)) / 86400000);
-                await addDoc(postsCol, { 
-                    author: document.getElementById('user-name').value || 'Anonim', 
-                    content, ytLink: document.getElementById('yt-link').value, 
-                    mood: selectedMood, day: Math.max(0, dayCount), 
-                    timestamp: new Date().toISOString(), likes: 0, replies: [] 
-                });
-                
-                document.getElementById('post-content').value = '';
-                document.getElementById('yt-link').value = '';
-                
-                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#6366f1', '#a78bfa'] });
-                Swal.fire({ icon: 'success', title: 'Terkirim', text: 'Memori kamu sudah tersimpan.', showConfirmButton: false, timer: 1500 });
-            } catch (e) { Swal.fire('Error', 'Gagal mengirim postingan', 'error'); }
+            const dayCount = Math.floor((new Date() - new Date(startDate)) / 86400000);
+            await addDoc(postsCol, { 
+                author: document.getElementById('user-name').value || 'Anonim', 
+                content, ytLink: document.getElementById('yt-link').value, 
+                mood: selectedMood, day: Math.max(0, dayCount), 
+                timestamp: new Date().toISOString(), likes: 0, replies: [] 
+            });
+            document.getElementById('post-content').value = '';
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            Swal.fire({ icon: 'success', title: 'Postingan Terkirim!', showConfirmButton: false, timer: 1000 });
         };
 
         window.likePost = async (id) => {
-            const postRef = doc(db, 'artifacts', 'gamon-era-shared', 'posts', id);
-            await updateDoc(postRef, { likes: increment(1) });
-            confetti({ particleCount: 40, spread: 50, origin: { y: 0.8 }, scalar: 0.7, colors: ['#f43f5e'] });
+            await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', id), { likes: increment(1) });
+            confetti({ particleCount: 30, spread: 40, origin: { y: 0.8 }, scalar: 0.6, colors: ['#f43f5e'] });
+        };
+
+        window.sharePost = async (author, content) => {
+            const shareData = {
+                title: 'Card Memory - Cerita ' + author,
+                text: `"${content.substring(0, 100)}..." - Baca selengkapnya di Card Memory!`,
+                url: window.location.href
+            };
+            try {
+                if (navigator.share) { await navigator.share(shareData); } 
+                else { Swal.fire('Copy Link', 'Link aplikasi disalin ke clipboard!', 'info'); navigator.clipboard.writeText(window.location.href); }
+            } catch (err) { console.error(err); }
+        };
+
+        window.filterPosts = (keyword) => {
+            const filtered = allPosts.filter(p => 
+                p.author.toLowerCase().includes(keyword.toLowerCase()) || 
+                p.content.toLowerCase().includes(keyword.toLowerCase())
+            );
+            renderPosts(filtered);
         };
 
         window.openReplyModal = async (postId, name) => {
             const { value: text } = await Swal.fire({
-                title: `Balas ${name}`,
+                title: `Balas ke ${name}`,
                 input: 'textarea',
-                inputPlaceholder: 'Tulis dukunganmu...',
-                showCancelButton: true,
-                confirmButtonText: 'Kirim Balasan'
+                inputPlaceholder: 'Tulis dukungan...',
+                showCancelButton: true
             });
-
             if (text) {
                 await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId), {
                     replies: arrayUnion({ author: 'Anonim', content: text, timestamp: Date.now() })
@@ -306,75 +285,51 @@
         };
 
         window.editPost = async (id, oldContent) => {
-            const { value: password } = await Swal.fire({ title: 'Admin Otorisasi', input: 'password', inputPlaceholder: 'Password Admin' });
-            if (password !== ADMIN_PASS) return Swal.fire('Ditolak', 'Password salah', 'error');
-
-            const { value: newText } = await Swal.fire({
-                title: 'Edit Memori',
-                input: 'textarea',
-                inputValue: oldContent,
-                showCancelButton: true
-            });
-
-            if (newText) {
-                await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', id), { content: newText });
-                Swal.fire('Updated!', '', 'success');
-            }
+            const { value: pass } = await Swal.fire({ title: 'Admin Required', input: 'password', inputPlaceholder: 'Password Admin' });
+            if (pass !== ADMIN_PASS) return Swal.fire('Error', 'Password Salah', 'error');
+            const { value: newText } = await Swal.fire({ title: 'Edit Post', input: 'textarea', inputValue: oldContent, showCancelButton: true });
+            if (newText) await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', id), { content: newText });
         };
 
         window.deletePost = async (id) => {
-            const { value: password } = await Swal.fire({ title: 'Hapus Postingan?', text: 'Aksi ini tidak bisa dibatalkan.', input: 'password', inputPlaceholder: 'Password Admin', showCancelButton: true });
-            if (password === ADMIN_PASS) {
-                await deleteDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', id));
-                Swal.fire('Deleted', 'Postingan dihapus.', 'success');
-            }
+            const { value: pass } = await Swal.fire({ title: 'Hapus Post?', input: 'password', inputPlaceholder: 'Password Admin', showCancelButton: true });
+            if (pass === ADMIN_PASS) await deleteDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', id));
         };
 
         window.deleteReply = async (postId, replyIndex) => {
-            const { value: password } = await Swal.fire({ title: 'Hapus Komentar?', input: 'password', inputPlaceholder: 'Password Admin', showCancelButton: true });
-            if (password !== ADMIN_PASS) return;
-
-            const postRef = doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId);
-            const postSnap = await getDoc(postRef);
-            if(postSnap.exists()){
-                let replies = postSnap.data().replies || [];
+            const { value: pass } = await Swal.fire({ title: 'Hapus Balasan?', input: 'password', inputPlaceholder: 'Password Admin', showCancelButton: true });
+            if (pass !== ADMIN_PASS) return;
+            const snap = await getDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId));
+            if(snap.exists()){
+                let replies = snap.data().replies || [];
                 replies.splice(replyIndex, 1);
-                await updateDoc(postRef, { replies: replies });
-                Swal.fire('Success', 'Komentar dihapus', 'success');
+                await updateDoc(doc(db, 'artifacts', 'gamon-era-shared', 'posts', postId), { replies });
             }
         };
 
-        // AI LOGIC
         window.askAI = async () => {
             const input = document.getElementById('ai-input');
             const msg = input.value.trim();
-            if(!msg || !geminiApiKey) return Swal.fire('Error', 'Ketik sesuatu atau cek API Key di Admin.', 'warning');
-            
+            if(!msg || !geminiApiKey) return;
             const msgList = document.getElementById('ai-messages');
-            msgList.innerHTML += `<div class="p-4 bg-indigo-600/20 rounded-2xl self-end text-right ml-10"><b>Kamu:</b> ${msg}</div>`;
+            msgList.innerHTML += `<div class="p-3 bg-indigo-600/20 rounded-xl self-end text-right"><b>Kamu:</b> ${msg}</div>`;
             input.value = "";
-            msgList.scrollTop = msgList.scrollHeight;
-
             try {
                 const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiApiKey}`, {
                     method: 'POST', headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ contents: [{ parts: [{ text: `Kamu Gamon AI, teman curhat yang sangat pengertian dan empati. Jawab dengan hangat dan singkat: ${msg}` }] }] })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: `Kamu Gamon AI, teman yang suportif. Jawab singkat: ${msg}` }] }] })
                 });
                 const data = await res.json();
-                const aiText = data.candidates[0].content.parts[0].text;
-                msgList.innerHTML += `<div class="p-4 bg-white/5 rounded-2xl border border-white/10" data-aos="fade-up"><b>Gamon AI:</b> ${aiText}</div>`;
+                msgList.innerHTML += `<div class="p-3 bg-white/5 rounded-xl border border-white/10"><b>Gamon AI:</b> ${data.candidates[0].content.parts[0].text}</div>`;
                 msgList.scrollTop = msgList.scrollHeight;
-                AOS.refresh();
-            } catch (e) { Swal.fire('AI Error', 'Coba lagi nanti atau cek API Key.', 'error'); }
+            } catch (e) { Swal.fire('AI Busy'); }
         };
 
-        // ADMIN ACCESS
         window.checkAdminPassword = () => {
             if(document.getElementById('admin-password-field').value === ADMIN_PASS) {
                 document.getElementById('admin-auth').classList.add('hidden');
                 document.getElementById('admin-panel').classList.remove('hidden');
-                Swal.fire({ icon: 'success', title: 'Otorisasi Berhasil', toast: true, position: 'top-end', timer: 2000, showConfirmButton: false });
-            } else { Swal.fire('Gagal', 'Password salah!', 'error'); }
+            } else Swal.fire('Error', 'Password Salah!', 'error');
         };
 
         window.saveApiKey = async () => {
@@ -382,10 +337,52 @@
                 geminiApiKey: document.getElementById('api-key-input').value,
                 startDate: new Date(document.getElementById('start-date').value).toISOString()
             });
-            Swal.fire('Tersimpan', 'Konfigurasi telah diupdate.', 'success');
+            Swal.fire('Saved!', '', 'success');
         };
 
-        // RENDER & SYNC
+        function renderPosts(posts) {
+            const container = document.getElementById('feed-container');
+            container.innerHTML = posts.map(p => {
+                const ytId = p.ytLink ? (p.ytLink.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/)?.[2]) : null;
+                const videoHtml = ytId ? `<iframe class="w-full aspect-video rounded-2xl mt-4" src="https://www.youtube.com/embed/${ytId}" frameborder="0" allowfullscreen></iframe>` : '';
+                const replies = (p.replies || []).map((r, idx) => `
+                    <div class="bg-black/10 p-2 rounded-lg mt-1 text-[10px] flex justify-between items-center group">
+                        <span><b>${r.author}:</b> ${r.content}</span>
+                        <button onclick="deleteReply('${p.id}', ${idx})" class="opacity-0 group-hover:opacity-100 text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button>
+                    </div>`).join('');
+                
+                // MULTIAVATAR GENERATION
+                const svgCode = multiavatar(p.author);
+
+                return `
+                    <div class="glass card-post p-6" data-aos="fade-up">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="avatar-svg shadow-lg">${svgCode}</div>
+                                <div class="flex flex-col">
+                                    <span class="text-xs font-bold uppercase tracking-wider">${p.author}</span>
+                                    <span class="text-[9px] opacity-40">Day ${p.day}</span>
+                                </div>
+                            </div>
+                            <div class="flex gap-3 opacity-30 hover:opacity-100 transition-opacity">
+                                <button onclick="sharePost('${p.author}', \`${p.content.replace(/'/g, "\\'")}\`)"><i data-lucide="share-2" class="w-4 h-4 text-pink-400"></i></button>
+                                <button onclick="editPost('${p.id}', \`${p.content.replace(/`/g, '\\`')}\`)"><i data-lucide="edit-3" class="w-4 h-4 text-indigo-400"></i></button>
+                                <button onclick="deletePost('${p.id}')"><i data-lucide="trash-2" class="w-4 h-4 text-red-400"></i></button>
+                            </div>
+                        </div>
+                        <p class="post-text text-sm">${p.content}</p>
+                        ${videoHtml}
+                        <div class="flex gap-6 border-t border-white/5 pt-4 mt-5">
+                            <button onclick="likePost('${p.id}')" class="text-pink-400 text-[10px] font-bold flex items-center gap-2"><i data-lucide="heart" class="w-4 h-4"></i> ${p.likes || 0}</button>
+                            <button onclick="openReplyModal('${p.id}', '${p.author}')" class="text-indigo-400 text-[10px] font-bold flex items-center gap-2"><i data-lucide="message-circle" class="w-4 h-4"></i> BALAS</button>
+                        </div>
+                        <div class="mt-3">${replies}</div>
+                    </div>`;
+            }).join('');
+            lucide.createIcons();
+            AOS.refresh();
+        }
+
         function setupSync() {
             onSnapshot(configRef, (snap) => {
                 if (snap.exists()) {
@@ -400,45 +397,8 @@
 
             const q = query(postsCol, orderBy('timestamp', 'desc'));
             onSnapshot(q, (snapshot) => {
-                const container = document.getElementById('feed-container');
-                container.innerHTML = snapshot.docs.map(docSnap => {
-                    const post = docSnap.data();
-                    const id = docSnap.id;
-                    const ytId = post.ytLink ? (post.ytLink.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/)?.[2]) : null;
-                    const videoHtml = ytId ? `<iframe class="w-full aspect-video rounded-2xl mt-4 border border-white/5 shadow-lg" src="https://www.youtube.com/embed/${ytId}" frameborder="0" allowfullscreen></iframe>` : '';
-                    
-                    const replies = (post.replies || []).map((r, idx) => `
-                        <div class="bg-black/10 p-3 rounded-xl mt-2 text-[10px] flex justify-between items-center group border border-white/5">
-                            <span><b class="text-indigo-400">${r.author}:</b> ${r.content}</span>
-                            <button onclick="deleteReply('${id}', ${idx})" class="opacity-0 group-hover:opacity-100 text-red-500 p-1"><i data-lucide="x" class="w-3 h-3"></i></button>
-                        </div>`).join('');
-                    
-                    return `
-                        <div class="glass card-post p-6" data-aos="fade-up">
-                            <div class="flex justify-between items-start mb-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="avatar" style="background:linear-gradient(45deg, #6366f1, #a78bfa)">${post.author.substring(0,2)}</div>
-                                    <div class="flex flex-col">
-                                        <span class="text-xs font-bold uppercase tracking-wider">${post.author}</span>
-                                        <span class="text-[9px] opacity-40 font-bold">STORY DAY ${post.day}</span>
-                                    </div>
-                                </div>
-                                <div class="flex gap-3 opacity-20 hover:opacity-100 transition-opacity">
-                                    <button onclick="editPost('${id}', \`${post.content.replace(/`/g, '\\`')}\`)"><i data-lucide="pencil" class="w-4 h-4 text-indigo-400"></i></button>
-                                    <button onclick="deletePost('${id}')"><i data-lucide="trash-2" class="w-4 h-4 text-red-400"></i></button>
-                                </div>
-                            </div>
-                            <p class="post-text text-sm leading-relaxed">${post.content}</p>
-                            ${videoHtml}
-                            <div class="flex gap-6 border-t border-white/5 pt-4 mt-5">
-                                <button onclick="likePost('${id}')" class="text-pink-400 text-[10px] font-bold flex items-center gap-2 hover:scale-110 transition-transform"><i data-lucide="heart" class="w-4 h-4"></i> ${post.likes || 0}</button>
-                                <button onclick="openReplyModal('${id}', '${post.author}')" class="text-indigo-400 text-[10px] font-bold flex items-center gap-2"><i data-lucide="message-square" class="w-4 h-4"></i> BALAS</button>
-                            </div>
-                            <div class="mt-3 space-y-1">${replies}</div>
-                        </div>`;
-                }).join('');
-                lucide.createIcons();
-                AOS.refresh();
+                allPosts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderPosts(allPosts);
             });
         }
 
@@ -451,7 +411,7 @@
         }
 
         window.onload = () => {
-            AOS.init({ duration: 800, once: true, offset: 50 });
+            AOS.init({ duration: 800, once: true });
             changeTheme(localStorage.getItem('gamon_theme') || 'dark');
             setupSync();
             setInterval(updateTimer, 1000);
